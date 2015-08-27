@@ -13,5 +13,7 @@ else
 end
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
-
+  validates :name, :description, :price, presence: true  
+  validates :price, numericality: { greater_than: 0 }
+  validates :image, attachment_presence: true
 end
