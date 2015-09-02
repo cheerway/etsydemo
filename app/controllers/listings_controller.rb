@@ -10,6 +10,8 @@ class ListingsController < ApplicationController
   # GET /listings/1
   # GET /listings/1.json
   def show
+    @listing = Listing.find params[:id]
+    @line_item = current_cart.line_items.find_or_initialize_by(listing: @listing)
   end
 
   # GET /listings/new
@@ -69,6 +71,6 @@ class ListingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
-      params.require(:listing).permit(:name, :description, :price, :image)
+      params.require(:listing).permit(:name, :description, :price, :image, :stock)
     end
 end

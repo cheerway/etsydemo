@@ -1,0 +1,32 @@
+
+<h1>Listing Admin Listings</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Stock</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_listings.each do |admin_listing| %>
+      <tr>
+        <td><%= admin_listing.name %></td>
+        <td><%= admin_listing.description %></td>
+        <td><%= admin_listing.price %></td>
+        <td><%= admin_listing.stock %></td>
+        <td><%= link_to 'Show', admin_listing %></td>
+        <td><%= link_to 'Edit', edit_admin_listing_path(admin_listing) %></td>
+        <td><%= link_to 'Destroy', admin_listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Listing', new_admin_listing_path %>

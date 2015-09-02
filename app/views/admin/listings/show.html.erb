@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @admin_listing.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @admin_listing.description %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @admin_listing.price %>
+</p>
+
+<p>
+  <strong>Stock:</strong>
+  <%= @admin_listing.stock %>
+</p>
+
+<%= link_to 'Edit', edit_admin_listing_path(@admin_listing) %> |
+<%= link_to 'Back', admin_listings_path %>

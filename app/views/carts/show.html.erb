@@ -1,0 +1,30 @@
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>品名</th>
+      <th>單價</th>
+      <th>數量</th>
+      <th>小結</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% current_cart.line_items.each do |line_item| %>
+    <tr>
+      <td><%= line_item.listing.name %></td>
+      <td><%= number_to_currency line_item.unit_price %></td>
+      <td><%= line_item.quantity %></td>
+      <td><%= number_to_currency line_item.subtotal %></td>
+      <td><%= link_to '刪除這一筆', line_item, method: :delete %></td>
+    </tr>
+    <% end %>
+    <tr>
+      <td colspan="2"></td>
+      <td>Total</td>
+      <td><%= number_to_currency current_cart.total %></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<%= link_to '結帳', new_order_path, class: "btn btn-link"  %>

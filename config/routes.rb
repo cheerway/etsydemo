@@ -1,11 +1,46 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :orders
+  end
+  namespace :admin do
+    resources :listings
+  end
+  get 'line_items/create'
+
+  get 'carts/show'
+
+  # devise_for :managers
   devise_for :users
+
+  devise_for :managers, :path => '', :path_names =>{
+    :sign_in => "/dashboard/tomtom/login",
+    :sign_out => "/dashboard/tomtom/logout"
+  }
+  
+
   resources :listings
   get 'pages/about'
 
   get 'pages/contact'
 
   root 'listings#index'
+  resources :line_items, only: %i[create update destroy]
+  resources :listings, only: :show
+  resource :cart, only: %i[show update]
+  resources :orders, only: %i[new create show] do
+    get :checkout, on: :member
+  end
+
+  namespace :dashboard do
+    namespace :tomtom do
+      resources :listings
+    end
+    resources :listings
+  end
+
+  post 'allpay/result'
+
+  post 'allpay/return'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

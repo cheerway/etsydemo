@@ -4,11 +4,25 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_current_cart, if: ->{ Rails.env.development? }
+  helper_method :current_cart
 
+  def current_cart
+    @current_cart ||= Cart.find_or_create_by(id: session[:cart_id])
+    session[:cart_id] = @current_cart.id
+    @current_cart
+  end
+  
   protected
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << :name
     devise_parameter_sanitizer.for(:account_update) << :name
+  end
+
+  private
+
+  def set_current_cart
+    session[:cart_id] = 1
   end
 end
